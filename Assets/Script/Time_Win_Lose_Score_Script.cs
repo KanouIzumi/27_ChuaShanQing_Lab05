@@ -15,7 +15,10 @@ public class Time_Win_Lose_Score_Script : MonoBehaviour
     private int score;
 
     //this is for the time
-
+    public float timeleft;
+    public float timeRemaining;
+    public Text TimerText;
+    private float TimerValue;
 
     // Start is called before the first frame update
     void Start()
@@ -26,7 +29,26 @@ public class Time_Win_Lose_Score_Script : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        WinCondition();
+        timeleft -= Time.deltaTime;
+
+        timeRemaining = Mathf.FloorToInt(timeleft % 60);
+
+        TimerText.text = "Timer :" + timeRemaining.ToString();
+
+        if(coins.Length <= 0)
+        {
+            if(timeleft <=TimerValue)
+            {
+                SceneManager.LoadScene("GameWinScene");
+            }
+        }
+
+        else if(timeleft <= 0)
+        {
+            SceneManager.LoadScene("GameLoseScene");
+        }
+
+        //WinCondition();
     }
 
     private void PlayGetCoinsound()
@@ -55,13 +77,13 @@ public class Time_Win_Lose_Score_Script : MonoBehaviour
     }
 
     //How to win the game
-    private void WinCondition()
-    {
-        coins = GameObject.FindGameObjectsWithTag("Coin");
+    //private void WinCondition()
+    //{
+    //    coins = GameObject.FindGameObjectsWithTag("Coin");
 
-        if (coins.Length <= 0)
-        {
-            SceneManager.LoadScene("GameWinScene");
-        }
-    }
+    //    if (coins.Length <= 0)
+    //    {
+    //        SceneManager.LoadScene("GameWinScene");
+    //    }
+    //}
 }

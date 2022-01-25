@@ -140,8 +140,6 @@ namespace UnityStandardAssets.Characters.FirstPerson
             UpdateCameraPosition(speed);
 
             m_MouseLook.UpdateCursorLock();
-
-            WinCondition();
         }
 
 
@@ -149,33 +147,6 @@ namespace UnityStandardAssets.Characters.FirstPerson
         {
             m_AudioSource.clip = m_JumpSound;
             m_AudioSource.Play();
-        }
-
-        private void PlayGetCoinsound()
-        {
-            m_AudioSource.clip = m_GetCoin;
-            m_AudioSource.Play();
-        }
-
-        private void OnTriggerEnter(Collider collision)
-        {
-            if (collision.gameObject.tag == "Coin")
-            {
-                //score++;
-                //scoreText.text = "" + score;
-                PlayGetCoinsound();
-                Destroy(collision.gameObject);
-            }
-        }
-
-        private void WinCondition()
-        {
-            coins = GameObject.FindGameObjectsWithTag("Coin");
-
-            if (coins.Length <= 0)
-            {
-                SceneManager.LoadScene("GameWinScene");
-            }
         }
 
         private void ProgressStepCycle(float speed)
