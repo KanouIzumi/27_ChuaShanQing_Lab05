@@ -12,6 +12,7 @@ public class Time_Win_Lose_Score_Script : MonoBehaviour
     //This is for the score 
     public Text scoreText;
     private GameObject[] coins;
+    public float totalcoins;
     private int score;
 
     //this is for the time
@@ -23,6 +24,8 @@ public class Time_Win_Lose_Score_Script : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        totalcoins = GameObject.FindGameObjectsWithTag("Coin").Length;
+
         m_AudioSource = GetComponent<AudioSource>();
     }
 
@@ -35,7 +38,7 @@ public class Time_Win_Lose_Score_Script : MonoBehaviour
 
         TimerText.text = "Timer :" + timeRemaining.ToString();
 
-        if(coins.Length == 0)
+        if(totalcoins == 0)
         {
             if(timeleft <=TimerValue)
             {
@@ -63,6 +66,7 @@ public class Time_Win_Lose_Score_Script : MonoBehaviour
         if (collision.gameObject.tag == "Coin")
         {
             score +=10;
+            totalcoins--;
             scoreText.text = "Score: " + score;
             PlayGetCoinsound();
             Destroy(collision.gameObject);

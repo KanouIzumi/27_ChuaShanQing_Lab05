@@ -1245,6 +1245,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_GetCoin: {fileID: 8300000, guid: 9d9807f63cd23d44ab52ad3cde05672d, type: 3}
   scoreText: {fileID: 1826260824}
+  totalcoins: 2
   timeleft: 30
   timeRemaining: 30
   TimerText: {fileID: 1355830176}
