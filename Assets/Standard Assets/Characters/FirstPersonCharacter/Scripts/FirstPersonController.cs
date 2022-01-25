@@ -3,6 +3,10 @@ using UnityEngine;
 using UnityStandardAssets.CrossPlatformInput;
 using UnityStandardAssets.Utility;
 using Random = UnityEngine.Random;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 namespace UnityStandardAssets.Characters.FirstPerson
 {
@@ -41,6 +45,10 @@ namespace UnityStandardAssets.Characters.FirstPerson
         private float m_NextStep;
         private bool m_Jumping;
         private AudioSource m_AudioSource;
+
+        //This is ShanQnig's updates
+        private GameObject[] coins;
+        [SerializeField] private AudioClip m_GetCoin;           // the sound played when character touches the coin.
 
         // Use this for initialization
         private void Start()
@@ -82,6 +90,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
 
             m_PreviouslyGrounded = m_CharacterController.isGrounded;
         }
+
 
 
         private void PlayLandingSound()
@@ -131,6 +140,8 @@ namespace UnityStandardAssets.Characters.FirstPerson
             UpdateCameraPosition(speed);
 
             m_MouseLook.UpdateCursorLock();
+
+            WinCondition();
         }
 
 
@@ -140,6 +151,32 @@ namespace UnityStandardAssets.Characters.FirstPerson
             m_AudioSource.Play();
         }
 
+        private void PlayGetCoinsound()
+        {
+            m_AudioSource.clip = m_GetCoin;
+            m_AudioSource.Play();
+        }
+
+        private void OnTriggerEnter(Collider collision)
+        {
+            if (collision.gameObject.tag == "Coin")
+            {
+                //score++;
+                //scoreText.text = "" + score;
+                PlayGetCoinsound();
+                Destroy(collision.gameObject);
+            }
+        }
+
+        private void WinCondition()
+        {
+            coins = GameObject.FindGameObjectsWithTag("Coin");
+
+            if (coins.Length <= 0)
+            {
+                SceneManager.LoadScene("GameWinScene");
+            }
+        }
 
         private void ProgressStepCycle(float speed)
         {
@@ -256,4 +293,6 @@ namespace UnityStandardAssets.Characters.FirstPerson
             body.AddForceAtPosition(m_CharacterController.velocity*0.1f, hit.point, ForceMode.Impulse);
         }
     }
+
+
 }
