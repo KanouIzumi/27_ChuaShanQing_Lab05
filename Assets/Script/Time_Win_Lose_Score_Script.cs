@@ -35,7 +35,7 @@ public class Time_Win_Lose_Score_Script : MonoBehaviour
 
         TimerText.text = "Timer :" + timeRemaining.ToString();
 
-        if(coins.Length <= 0)
+        if(coins.Length == 0)
         {
             if(timeleft <=TimerValue)
             {
