@@ -21,6 +21,8 @@ public class Time_Win_Lose_Score_Script : MonoBehaviour
     public Text TimerText;
     private float TimerValue;
 
+    public ParticleSystem particles;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -46,7 +48,7 @@ public class Time_Win_Lose_Score_Script : MonoBehaviour
             }
         }
 
-        else if(timeleft <= 0)
+        else if(timeleft <= 0.1)
         {
             SceneManager.LoadScene("GameLoseScene");
         }
@@ -68,6 +70,7 @@ public class Time_Win_Lose_Score_Script : MonoBehaviour
             score +=10;
             totalcoins--;
             scoreText.text = "Score: " + score;
+            particles.Play();
             PlayGetCoinsound();
             Destroy(collision.gameObject);
         }

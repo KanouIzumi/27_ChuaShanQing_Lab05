@@ -14,12 +14,13 @@ public class Button_script : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if(Input.GetKey(KeyCode.R))
+        {
+            print("You restarted the game");
+            SceneManager.LoadScene("GameScene");
+        }
     }
 
-    public void RestartGame()
-    {
-        SceneManager.LoadScene("GameScene");
-    }
+   
 
 }
